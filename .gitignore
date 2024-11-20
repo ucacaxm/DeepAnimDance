@@ -1,3 +1,3 @@
-data/taichi1
+data/taichi1/*
 *_pycache_*
-src/_pycache_*
+src/__pycache_*

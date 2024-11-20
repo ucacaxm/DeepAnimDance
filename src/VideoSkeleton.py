@@ -201,8 +201,8 @@ class VideoSkeleton:
 
 
 if __name__ == '__main__':
-    force = True
-    #force = False
+    #force = True
+    force = False
     modFRame = 10           # 10=>1440 images, 25=>560 images, 100=>140 images, 500=>280 images
     modFRame = 100
 
@@ -214,6 +214,7 @@ if __name__ == '__main__':
                 modFRame = int(sys.argv[3])
     else:
         filename = "data/taichi1.mp4"
+    print("force="+str(force) + " modFrame="+str(modFRame))
     print("Current Working Directory: ", os.getcwd())
     print("Filename=", filename)
 
