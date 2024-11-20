@@ -4,7 +4,6 @@ import os
 import pickle
 import sys
 
-import tp
 from VideoSkeleton import VideoSkeleton
 from VideoSkeleton import combineTwoImages
 from VideoReader import VideoReader
@@ -19,7 +18,7 @@ class DanceDemo:
         The animation/posture from self.source is applied to character define self.target using self.gen
     """
     def __init__(self, filename_src, typeOfGen=2):
-        self.target = VideoSkeleton( "tp/dance/data/taichi1.mp4" )
+        self.target = VideoSkeleton( "data/taichi1.mp4" )
         self.source = VideoReader(filename_src)
         if typeOfGen==1:           # Nearest
             print("Generator: GenNeirest")
