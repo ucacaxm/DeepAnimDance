@@ -41,7 +41,7 @@ class GenGAN():
        Fonc generator(Skeleton)->Image
     """
     def __init__(self, videoSke, loadFromFile=False):
-        self.netG = GenNNSkeToImage()
+        self.netG = GenNNSke26ToImage()
         self.netD = Discriminator()
         self.real_label = 1.
         self.fake_label = 0.

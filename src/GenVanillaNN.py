@@ -103,12 +103,12 @@ def init_weights(m):
 
 
 
-class GenNNSkeToImage(nn.Module):
+class GenNNSke26ToImage(nn.Module):
     """ class that Generate a new image from videoSke from a new skeleton posture
-       Fonc generator(Skeleton)->Image
+       Fonc generator(Skeleton_dim26)->Image
     """
     def __init__(self):
-        super(GenNNSkeToImage, self).__init__()
+        super(GenNNSke26ToImage, self).__init__()
         self.input_dim = Skeleton.reduced_dim
         self.model = nn.Sequential(
             # TP-TODO
@@ -124,10 +124,11 @@ class GenNNSkeToImage(nn.Module):
 
 class GenNNSkeImToImage(nn.Module):
     """ class that Generate a new image from from THE IMAGE OF the new skeleton posture
-       Fonc generator(Skeleton)->Image
+       SkeletonImage is an image with the skeleton drawed on it
+       Fonc generator(SkeletonImage)->Image
     """
     def __init__(self):
-        super(GenNNSkeToImage, self).__init__()
+        super(GenNNSke26ToImage, self).__init__()
         self.input_dim = Skeleton.reduced_dim
         self.model = nn.Sequential(
             # TP-TODO
@@ -149,11 +150,11 @@ class GenVanillaNN():
     """
     def __init__(self, videoSke, loadFromFile=False, optSkeOrImage=1):
         image_size = 64
-        if optSkeOrImage==1:
-            self.netG = GenNNSkeToImage()
+        if optSkeOrImage==1:        # skeleton_dim26 to image
+            self.netG = GenNNSke26ToImage()
             src_transform = None
-            self.filename = 'data/Dance/DanceGenVanillaFromSke.pth'
-        else:
+            self.filename = 'data/Dance/DanceGenVanillaFromSke26.pth'
+        else:                       # skeleton_image to image
             self.netG = GenNNSkeImToImage()
             src_transform = transforms.Compose([ SkeToImageTransform(image_size),
                                                  transforms.ToTensor(),
@@ -171,6 +172,7 @@ class GenVanillaNN():
                             # [transforms.Resize((64, 64)),
                             # transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
                             ])
+                            # ouput image (target) are in the range [-1,1] after normalization
         self.dataset = VideoSkeletonDataset(videoSke, ske_reduced=True, target_transform=tgt_transform, source_transform=src_transform)
         self.dataloader = torch.utils.data.DataLoader(dataset=self.dataset, batch_size=16, shuffle=True)
         if loadFromFile and os.path.isfile(self.filename):
