@@ -108,7 +108,7 @@ class GenNNSke26ToImage(nn.Module):
        Fonc generator(Skeleton_dim26)->Image
     """
     def __init__(self):
-        super(GenNNSke26ToImage, self).__init__()
+        super().__init__()
         self.input_dim = Skeleton.reduced_dim
         self.model = nn.Sequential(
             # TP-TODO
@@ -128,7 +128,7 @@ class GenNNSkeImToImage(nn.Module):
        Fonc generator(SkeletonImage)->Image
     """
     def __init__(self):
-        super(GenNNSke26ToImage, self).__init__()
+        super().__init__()
         self.input_dim = Skeleton.reduced_dim
         self.model = nn.Sequential(
             # TP-TODO
@@ -152,13 +152,14 @@ class GenVanillaNN():
         image_size = 64
         if optSkeOrImage==1:        # skeleton_dim26 to image
             self.netG = GenNNSke26ToImage()
-            src_transform = None
+            src_transform = transforms.Compose([ transforms.ToTensor(),
+                                                 ])
             self.filename = 'data/Dance/DanceGenVanillaFromSke26.pth'
         else:                       # skeleton_image to image
             self.netG = GenNNSkeImToImage()
             src_transform = transforms.Compose([ SkeToImageTransform(image_size),
                                                  transforms.ToTensor(),
-                                                 #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                                                  ])
             self.filename = 'data/Dance/DanceGenVanillaFromSkeim.pth'
 

@@ -25,7 +25,7 @@ from GenVanillaNN import *
 
 class Discriminator(nn.Module):
     def __init__(self, ngpu=0):
-        super(Discriminator, self).__init__()
+        super().__init__()
         self.ngpu = ngpu
 
 
