@@ -1,3 +1,4 @@
 data/taichi1/*
 *_pycache_*
 src/__pycache_*
+*.pkl
