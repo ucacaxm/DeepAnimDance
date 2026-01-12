@@ -152,8 +152,7 @@ class GenVanillaNN():
         image_size = 64
         if optSkeOrImage==1:        # skeleton_dim26 to image
             self.netG = GenNNSke26ToImage()
-            src_transform = transforms.Compose([ transforms.ToTensor(),
-                                                 ])
+            src_transform = None #transforms.Compose([ transforms.ToTensor(),])
             self.filename = 'data/Dance/DanceGenVanillaFromSke26.pth'
         else:                       # skeleton_image to image
             self.netG = GenNNSkeImToImage()
@@ -201,10 +200,10 @@ class GenVanillaNN():
 
 
 if __name__ == '__main__':
-    force = False
-    optSkeOrImage = 2           # use as input a skeleton (1) or an image with a skeleton drawed (2)
+    force = True
+    optSkeOrImage = 1           # use as input a skeleton (1) or an image with a skeleton drawed (2)
     n_epoch = 2000  # 200
-    train = 1 #False
+    train = True #False
     #train = True
 
     if len(sys.argv) > 1:
